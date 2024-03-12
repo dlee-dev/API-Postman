@@ -1,0 +1,307 @@
+{
+	"info": {
+		"_postman_id": "4849e651-5a7d-4d94-8810-b941166c75cb",
+		"name": "Proxima",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API-Books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d8e99eb1-5848-4105-8f88-e7928952bb0d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body is not empty\", function () {\r",
+							"    pm.response.to.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Pagination: Check if there are 10 elements\", function () {\r",
+							"    const books = pm.response.json();\r",
+							"    pm.expect(books.length).to.equal(10);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each book has an ISBN\", function () {\r",
+							"    const books = pm.response.json();\r",
+							"    for (let book of books) {\r",
+							"        pm.expect(book.isbn).to.not.be.undefined;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each book has a title\", function () {\r",
+							"    const books = pm.response.json();\r",
+							"    for (let book of books) {\r",
+							"        pm.expect(book.name).to.not.be.undefined;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each book has a numberOfPages field\", function () {\r",
+							"    const books = pm.response.json();\r",
+							"    for (let book of books) {\r",
+							"        pm.expect(book.numberOfPages).to.not.be.undefined;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"All numberOfPages are numbers\", function () {\r",
+							"    const books = pm.response.json();\r",
+							"    for (let book of books) {\r",
+							"        pm.expect(book.numberOfPages).to.be.a(\"number\");\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each book has an author\", function () {\r",
+							"    const books = pm.response.json();\r",
+							"    for (let book of books) {\r",
+							"        pm.expect(book.authors).to.not.be.undefined;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each book's author has a name\", function () {\r",
+							"    const books = pm.response.json();\r",
+							"    for (let book of books) {\r",
+							"        pm.expect(book.authors[0]).to.not.be.undefined;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each book has a publisher\", function () {\r",
+							"    const books = pm.response.json();\r",
+							"    for (let book of books) {\r",
+							"        pm.expect(book.publisher).to.not.be.undefined;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each book has it's country of publication\", function () {\r",
+							"    const books = pm.response.json();\r",
+							"    for (let book of books) {\r",
+							"        pm.expect(book.country).to.not.be.undefined;\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "9c5be6ff-c576-4880-ac7e-90a8204ee170",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://www.anapioficeandfire.com/api/books"
+			},
+			"response": []
+		},
+		{
+			"name": "API-Characters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b9883e52-eec1-4d24-98d3-7f3e00b2aead",
+						"exec": [
+							"pm.test('Status code is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test('Response body is not empty', function () {\r",
+							"    pm.response.to.not.be.empty;\r",
+							"})\r",
+							"\r",
+							"pm.test('Response contains 10 elements in total', function () {\r",
+							"    const characters = pm.response.json();\r",
+							"    pm.expect(characters.length).to.eql(10);\r",
+							"})\r",
+							"\r",
+							"pm.test('All characters have a \\'name\\' property', function () {\r",
+							"    const characters = pm.response.json();\r",
+							"    characters.forEach(function (character) {\r",
+							"        pm.expect(character).to.have.property('name');\r",
+							"    });\r",
+							"})\r",
+							"\r",
+							"pm.test('All character names are strings', function () {\r",
+							"    const characters = pm.response.json();\r",
+							"    characters.forEach(function (character) {\r",
+							"        pm.expect(character.name).to.be.a('string');\r",
+							"    });\r",
+							"})\r",
+							"\r",
+							"pm.test('All character genders are either \\'Male\\', \\'Female\\', or \\'Unknown\\'', function () {\r",
+							"    const characters = pm.response.json();\r",
+							"    const validGenders = [\r",
+							"        'Male',\r",
+							"        'Female',\r",
+							"        'Unknown'\r",
+							"    ];\r",
+							"    characters.forEach(function (character) {\r",
+							"        pm.expect(validGenders).to.include(character.gender);\r",
+							"    });\r",
+							"})\r",
+							"\r",
+							"pm.test('All character cultures are strings', function () {\r",
+							"    const characters = pm.response.json();\r",
+							"    characters.forEach(function (character) {\r",
+							"        pm.expect(character.culture).to.be.a('string');\r",
+							"    });\r",
+							"})\r",
+							"\r",
+							"pm.test('All character aliases are arrays of strings', function () {\r",
+							"    const characters = pm.response.json();\r",
+							"    characters.forEach(function (character) {\r",
+							"        if (character.aliases.length > 0) {\r",
+							"            character.aliases.forEach(function (alias) {\r",
+							"                pm.expect(alias).to.be.a('string');\r",
+							"            });\r",
+							"        }\r",
+							"    });\r",
+							"})\r",
+							"\r",
+							"pm.test(\"All character allegiances are arrays of URLs\", function () {\r",
+							"    const characters = pm.response.json();\r",
+							"    characters.forEach(function (character) {\r",
+							"        if (character.allegiances.length > 0) {\r",
+							"            character.allegiances.forEach(function (allegiance) {\r",
+							"                pm.expect(allegiance).to.be.a('string');\r",
+							"                pm.expect(allegiance).to.match(/^https:\\/\\/www\\.anapioficeandfire\\.com\\/api\\/houses\\/\\d+\\/?$/);\r",
+							"            });\r",
+							"        }\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "448ada48-806e-4ea3-bffb-2f48c760d6f3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://www.anapioficeandfire.com/api/characters"
+			},
+			"response": []
+		},
+		{
+			"name": "API-Houses",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9228908-714e-4be2-86d8-5b27e6037ba4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body is not empty\", function () {\r",
+							"    pm.response.to.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"pm.test('Response contains 10 elements in total', function () {\r",
+							"    const characters = pm.response.json();\r",
+							"    pm.expect(characters.length).to.eql(10);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Content-Type is present and correct\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body has the correct schema\", function () {\r",
+							"    const schema = {\r",
+							"        \"type\": \"array\",\r",
+							"        \"items\": {\r",
+							"            \"type\": \"object\",\r",
+							"            \"properties\": {\r",
+							"                \"url\": { \"type\": \"string\" },\r",
+							"                \"name\": { \"type\": \"string\" },\r",
+							"                \"region\": { \"type\": \"string\" },\r",
+							"                \"coatOfArms\": { \"type\": \"string\" },\r",
+							"                \"words\": { \"type\": \"string\" },\r",
+							"                \"titles\": { \"type\": \"array\" },\r",
+							"                \"seats\": { \"type\": \"array\" },\r",
+							"                \"currentLord\": { \"type\": \"string\" },\r",
+							"                \"heir\": { \"type\": \"string\" },\r",
+							"                \"overlord\": { \"type\": \"string\" },\r",
+							"                \"founded\": { \"type\": \"string\" },\r",
+							"                \"founder\": { \"type\": \"string\" },\r",
+							"                \"diedOut\": { \"type\": \"string\" },\r",
+							"                \"ancestralWeapons\": { \"type\": \"array\" },\r",
+							"                \"cadetBranches\": { \"type\": \"array\" },\r",
+							"                \"swornMembers\": { \"type\": \"array\" }\r",
+							"            },\r",
+							"            \"required\": [\"url\", \"name\", \"region\", \"coatOfArms\", \"words\", \"titles\", \"seats\", \"currentLord\", \"heir\", \"overlord\", \"founded\", \"founder\", \"diedOut\", \"ancestralWeapons\", \"cadetBranches\", \"swornMembers\"]\r",
+							"        }\r",
+							"    };\r",
+							"\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							"\r",
+							"let houseName = \"House Baelish of Harrenhal\";\r",
+							"let expectedTitles = [\"Lord Paramount of the Trident\", \"Lord of Harrenhal\"];\r",
+							"pm.test(`Verify specific titles for ${houseName}`, function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const house = jsonData.find(house => house.name === houseName);\r",
+							"    pm.expect(house.titles).to.include.members(expectedTitles);\r",
+							"});\r",
+							"\r",
+							"houseName = \"House Allyrion of Godsgrace\";\r",
+							"let expectedSwornMembersCount = 4;\r",
+							"pm.test(`Verify sworn members count for ${houseName}`, function () {\r",
+							"\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const house = jsonData.find(house => house.name === houseName);\r",
+							"    pm.expect(house.swornMembers.length).to.eql(expectedSwornMembersCount);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "43d197f3-72c0-43fb-b3ab-9ea7d0245f4e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://www.anapioficeandfire.com/api/houses"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "06b91e9b-ae9e-473a-b4b7-b596dc1b6f3e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "81a6666f-7223-48d6-ad0a-5730dab0e17c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
