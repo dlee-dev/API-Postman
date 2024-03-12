@@ -14,5 +14,5 @@ jobs:
       - uses: matt-ball/newman-action@master
 
         with:
-          collection: /Postman Collections/proxima-backup.json
+          collection: ./Postman Collections/proxima-backup.json
           environment: postman_environment.json
