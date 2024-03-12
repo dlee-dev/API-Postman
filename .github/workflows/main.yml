@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
-      - uses: matt-ball/newman-action@main
+      - uses: matt-ball/newman-action@master
 
         with:
           collection: proxima-backup.json
