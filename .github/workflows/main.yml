@@ -15,4 +15,3 @@ jobs:
 
         with:
           collection: ./Postman Collections/proxima-backup.json
-          environment: postman_environment.json
