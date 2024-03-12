@@ -10,11 +10,9 @@ jobs:
   newman:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@main
+      - uses: actions/checkout@main
+      - uses: matt-ball/newman-action@main
 
-      - name: Run Postman Collection
-        uses: dlee-dev/API-Postman@main
         with:
           collection: proxima-backup.json
           environment: postman_environment.json
